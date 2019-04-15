@@ -16,16 +16,18 @@ class ViewController: UIViewController {
     let MonkeyiDesingTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Input your info"
-        tf.isSecureTextEntry = true
+        //tf.isSecureTextEntry = true
         tf.layer.borderWidth = 1.0
         tf.layer.borderColor = UIColor.lightGray.cgColor
         tf.layer.cornerRadius = 5
         tf.font = UIFont.systemFont(ofSize: 14)
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.setPaddiing()
         
         return tf
     }()
     
-    let showAlert: UIButton = {
+    let bntShowAlert: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Display Alert", for: .normal)
         btn.backgroundColor = UIColor(red: 68/255, green: 142/255, blue: 246/255, alpha:1.0)
@@ -42,12 +44,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.addSubview(showAlert)
-        showAlert.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        showAlert.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        view.addSubview(MonkeyiDesingTextField)
         
-        showAlert.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        showAlert.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+        MonkeyiDesingTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        MonkeyiDesingTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        MonkeyiDesingTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        
+        //MonkeyiDesingTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        //MonkeyiDesingTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        MonkeyiDesingTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        
+        view.addSubview(bntShowAlert)
+        bntShowAlert.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bntShowAlert.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        bntShowAlert.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        bntShowAlert.topAnchor.constraint(equalTo: MonkeyiDesingTextField.topAnchor, constant: 100).isActive = true
         
         
     }
@@ -62,6 +75,14 @@ class ViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+extension UITextField {
+    
+    func setPaddiing() {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
+        self.leftView = paddingView
+        self.leftViewMode = .always
     }
 }
 
